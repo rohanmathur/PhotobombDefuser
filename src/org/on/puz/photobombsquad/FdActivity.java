@@ -51,6 +51,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     private MenuItem               mItemFace20;
 
     private Mat                    mRgba;
+    private Mat                    mRaw;
     private Mat                    mGray;
     private File                   mCascadeFile;
     private DetectionBasedTracker  mNativeDetector;
@@ -177,16 +178,19 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     public void onCameraViewStarted(int width, int height) {
         mGray = new Mat();
         mRgba = new Mat();
+        mRaw  = new Mat();
     }
 
     public void onCameraViewStopped() {
         mGray.release();
         mRgba.release();
+        mRaw.release();
     }
 
     public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
 
         mRgba = inputFrame.rgba();
+        mRaw = mRgba.clone();
         mGray = inputFrame.gray();
 
         if (mAbsoluteFaceSize == 0) {
@@ -250,62 +254,61 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     }
 
     public void capturePhoto(View v){
-        if (effect == _Effect.REPLACE) {
-        	//Log.e("Thisisit", "hello");
+    	if (effect == _Effect.REPLACE) {
+    		//Log.e("Thisisit", "hello");
 
-        	Mat replaceImage = new Mat();
-        	try {
-				Utils.bitmapToMat(drawableToBitmap(Drawable.createFromStream(getAssets().open(replaceFile),null)),replaceImage);
-	        	for(Rect face:mTracker.badFaces()) {
-		    		Mat replaceScaled = new Mat();
-	        		Mat selectedArea = mRgba.submat(face);
-	        		//Log.e("OMG IN THE LOOP", "OMGOMGOMG");
-	        		Imgproc.resize(replaceImage,replaceScaled,selectedArea.size(),0,0,Imgproc.INTER_AREA);
-	        		//Log.e("OMG IN THE LOOP", "OMGOMGOMG2");
-	  	        	replaceScaled.copyTo(selectedArea);
-	        	}
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-        }
+    		try {
+    			Drawable replaceImage = Drawable.createFromStream(getAssets().open(replaceFile),null);
+    			Bitmap rgba = Bitmap.createBitmap((int)(mRaw.size().width+0.5), (int)(mRaw.size().height+0.5), Bitmap.Config.ARGB_8888);
+    			Utils.matToBitmap(mRaw, rgba);
+    			Canvas c = new Canvas(rgba);
+    			for(Rect face:mTracker.badFaces()) {
+    				replaceImage.setBounds(face.x,face.y,face.x+face.width,face.y+face.height);
+    				replaceImage.draw(c);
+    			}
+    			Utils.bitmapToMat(rgba, mRaw);
+    		} catch (IOException e1) {
+    			e1.printStackTrace();
+    		}
+    	}
 
-        	 Bitmap bmp = Bitmap.createBitmap(mRgba.width(), mRgba.height(), Config.ARGB_8888);
-             Utils.matToBitmap(mRgba, bmp);
-             ImageView tv1 = new ImageView(this);
-             tv1.setImageBitmap(bmp);
-             setContentView(tv1);
-             
-             try {
-                 String fDate = new SimpleDateFormat("yyyymmddhhmmss").format(new java.util.Date());
-                 File picDir = new File( Environment.getExternalStorageDirectory().toString()+File.separator + "BombDiffuser");
-                 if (! picDir.exists()){
-                     picDir.mkdirs();
-                     if (! picDir.mkdirs()){
-                         Log.d("SavePicture", "failed to create directory");
-                         return;
-                     }
-                 }
-                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                 bmp.compress(Bitmap.CompressFormat.PNG, 90, bytes);
-                 
-                 String filepath = picDir.getPath().toString() + File.separator  + "picture"+ fDate + ".png";
-                 File file = new File(filepath);
-                 Log.i(TAG, filepath);
-                 file.createNewFile();
-                 FileOutputStream out = new FileOutputStream(file);
-                 out.write(bytes.toByteArray());
+    	Bitmap bmp = Bitmap.createBitmap(mRaw.width(), mRaw.height(), Config.ARGB_8888);
+    	Utils.matToBitmap(mRaw, bmp);
+    	ImageView tv1 = new ImageView(this);
+    	tv1.setImageBitmap(bmp);
+    	setContentView(tv1);
 
-                out.flush();
-                out.close();
-                new SingleMediaScanner(this, file);
-                Toast.makeText(getApplicationContext(), "Photo saved in Gallery", Toast.LENGTH_LONG).show();
-                
-                saved = true;
-              
-             } catch (Exception e) {
-                 e.printStackTrace();
-             }
-         }
+    	try {
+    		String fDate = new SimpleDateFormat("yyyymmddhhmmss").format(new java.util.Date());
+    		File picDir = new File( Environment.getExternalStorageDirectory().toString()+File.separator + "BombDiffuser");
+    		if (! picDir.exists()){
+    			picDir.mkdirs();
+    			if (! picDir.mkdirs()){
+    				Log.d("SavePicture", "failed to create directory");
+    				return;
+    			}
+    		}
+    		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    		bmp.compress(Bitmap.CompressFormat.PNG, 90, bytes);
+
+    		String filepath = picDir.getPath().toString() + File.separator  + "picture"+ fDate + ".png";
+    		File file = new File(filepath);
+    		Log.i(TAG, filepath);
+    		file.createNewFile();
+    		FileOutputStream out = new FileOutputStream(file);
+    		out.write(bytes.toByteArray());
+
+    		out.flush();
+    		out.close();
+    		new SingleMediaScanner(this, file);
+    		Toast.makeText(getApplicationContext(), "Photo saved in Gallery", Toast.LENGTH_LONG).show();
+
+    		saved = true;
+
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    }
     public void onBackPressed() {
         Intent backPressedIntent = new Intent();
         if(saved){
