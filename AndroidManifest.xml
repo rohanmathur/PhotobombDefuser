@@ -21,7 +21,11 @@
             android:name="org.opencv.samples.facedetect.FdActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape"
+            >
+            <meta-data
+            	android:name="android.support.PARENT_ACTIVITY"
+            	android:value="org.opencv.samples.facedetect.MainActivity" />
         </activity>
         <activity
             android:name="org.opencv.samples.facedetect.DisplayPhoto"
