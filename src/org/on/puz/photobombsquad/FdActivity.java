@@ -70,6 +70,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     private String                 replaceFile;
     
     private boolean 			   saved;
+    private String				   message;
 
     private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -138,7 +139,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         
         // Get the message from the intent
         Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE); 
+        message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE); 
         
         Log.w("Intent contents"," "+message);
         
@@ -305,10 +306,18 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
                  e.printStackTrace();
              }
          }
-	    public void onBackPressed() {
-	        Intent backPressedIntent = new Intent();
-	        backPressedIntent .setClass(getApplicationContext(), FdActivity.class);
-	        startActivity(backPressedIntent);
-	        finish();
+    public void onBackPressed() {
+        Intent backPressedIntent = new Intent();
+        if(saved){
+            backPressedIntent.putExtra(MainActivity.EXTRA_MESSAGE, message);
+            backPressedIntent.setClass(getApplicationContext(), FdActivity.class);
+            startActivity(backPressedIntent);
+            finish();
+        }
+        else{
+            backPressedIntent.setClass(getApplicationContext(), MainActivity.class);
+            startActivity(backPressedIntent);
+            finish();   
+        }
     }
-     }
+}
