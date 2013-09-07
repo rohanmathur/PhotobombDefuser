@@ -19,6 +19,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.samples.facedetect.DetectionBasedTracker;
+import org.opencv.samples.facedetect.R;
 import org.opencv.core.Size;
 import org.opencv.highgui.Highgui;
 import org.opencv.objdetect.CascadeClassifier;

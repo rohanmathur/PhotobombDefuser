@@ -1,6 +1,8 @@
 package org.on.puz.photobombsquad;
 
 
+import org.opencv.samples.facedetect.R;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
