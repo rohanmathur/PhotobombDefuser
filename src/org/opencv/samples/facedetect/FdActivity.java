@@ -38,7 +38,8 @@ import android.widget.ImageView;
 public class FdActivity extends Activity implements CvCameraViewListener2{//, OnClickListener {
 
     private static final String    TAG                 = "OCVSample::Activity";
-    private static final Scalar    FACE_RECT_COLOR     = new Scalar(0, 255, 0, 255);
+    private static final Scalar    FACE_GOOD_COLOR     = new Scalar(  0, 255, 0, 255),
+    							   FACE_BAD_COLOR      = new Scalar(255,   0, 0, 255);
     public static final int        JAVA_DETECTOR       = 0;
     public static final int        NATIVE_DETECTOR     = 1;
 
@@ -51,7 +52,6 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     private Mat                    mRgba;
     private Mat                    mGray;
     private File                   mCascadeFile;
-    private CascadeClassifier      mJavaDetector;
     private DetectionBasedTracker  mNativeDetector;
 
     private int                    mDetectorType       = JAVA_DETECTOR;
@@ -61,6 +61,8 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     private int                    mAbsoluteFaceSize   = 0;
 
     private CameraBridgeViewBase   mOpenCvCameraView;
+    
+    private FaceTracker			   mTracker;
 
     private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -88,14 +90,9 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
                         is.close();
                         os.close();
 
-                        mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
-                        if (mJavaDetector.empty()) {
-                            Log.e(TAG, "Failed to load cascade classifier");
-                            mJavaDetector = null;
-                        } else
-                            Log.i(TAG, "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
-
                         mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);
+                        
+                        mTracker = new FaceTracker(mNativeDetector, 20*20, 20, 1, 3);
 
                         cascadeDir.delete();
 
@@ -189,25 +186,13 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
             }
             mNativeDetector.setMinFaceSize(mAbsoluteFaceSize);
         }
+        
+        mTracker.addFaceSet(mGray, System.currentTimeMillis());
 
-        MatOfRect faces = new MatOfRect();
-
-        if (mDetectorType == JAVA_DETECTOR) {
-            if (mJavaDetector != null)
-                mJavaDetector.detectMultiScale(mGray, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
-                        new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
-        }
-        else if (mDetectorType == NATIVE_DETECTOR) {
-            if (mNativeDetector != null)
-                mNativeDetector.detect(mGray, faces);
-        }
-        else {
-            Log.e(TAG, "Detection method is not selected!");
-        }
-
-        Rect[] facesArray = faces.toArray();
-        for (int i = 0; i < facesArray.length; i++)
-            Core.rectangle(mRgba, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
+        for (Rect face:mTracker.goodFaces())
+            Core.rectangle(mRgba, face.tl(), face.br(), FACE_GOOD_COLOR, 3);
+        for (Rect face:mTracker.badFaces())
+            Core.rectangle(mRgba, face.tl(), face.br(), FACE_BAD_COLOR, 3);
 
         return mRgba;
     }

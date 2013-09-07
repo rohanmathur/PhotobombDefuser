@@ -116,6 +116,12 @@ public class FaceTracker {
 			});
 		}
 	}
-	public Rect[] goodFaces() { return (Rect[]) _good.toArray(); }
-	public Rect[] badFaces() { return (Rect[]) _bad.toArray(); }
+	public Rect[] goodFaces() {
+		Rect[] ret = new Rect[_good.size()];
+		return _good.toArray(ret);
+	}
+	public Rect[] badFaces() {
+		Rect[] ret = new Rect[_bad.size()];
+		return _bad.toArray(ret);
+	}
 }
