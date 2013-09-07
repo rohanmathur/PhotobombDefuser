@@ -286,7 +286,6 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     
     }
 
-    
-    
+      
    
 }
