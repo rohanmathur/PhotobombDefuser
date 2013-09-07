@@ -19,9 +19,13 @@ import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.samples.facedetect.DetectionBasedTracker;
+import org.opencv.core.Size;
+import org.opencv.highgui.Highgui;
+import org.opencv.objdetect.CascadeClassifier;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.os.Bundle;
@@ -55,6 +59,8 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     private CameraBridgeViewBase   mOpenCvCameraView;
     
     private FaceTracker			   mTracker;
+    
+    private int                    currentTask;
 
     private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -120,6 +126,20 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.fd_activity_surface_view);
         mOpenCvCameraView.setCvCameraViewListener(this);
+        
+        // Get the message from the intent
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        
+        if (message == "NickCage") {
+        	currentTask = 1;
+        }
+        else if (message == "TrollFace") {
+        	currentTask = 2;
+        }
+        else if (message == "Replace") {
+            currentTask = 3;
+        }
     }
 
     @Override
@@ -203,14 +223,36 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         mRelativeFaceSize = faceSize;
         mAbsoluteFaceSize = 0;
     }
-    public void capturePhoto(View v) {
+
+    public void capturePhoto(View v){
+    	Log.e("Thisisit", "entered capturePhoto");
+        //if (currentTask == 1 || currentTask == 2) {
+        	Log.e("Thisisit", "hello");
+        	String replacementImage = null;
+        	//if (currentTask == 1) {
+        		replacementImage = "/sdcard/Pictures/NickCage.png";
+        		Log.e("Thisisit", replacementImage);
+        	//}
+        	//else if (currentTask == 2) {
+        		//replacementImage = "/sdcard/Pictures/PhotobombDefuser/TrollFace.png";
+        		//Log.e("Thisisit", "NUMBA 2");
+        	//}
+        	
+        	for(Rect face:mTracker.badFaces()) {
+        		Log.e("OMG IN THE LOOP", "OMGOMGOMG");
+        		Mat selectedArea = mRgba.submat(face);
+        		Mat replaceImage = Highgui.imread(replacementImage);
+  	        	replaceImage.copyTo(selectedArea);
+        	}
+        //}
+
         Bitmap bmp = Bitmap.createBitmap(mRgba.width(), mRgba.height(), Config.ARGB_8888);
         Utils.matToBitmap(mRgba, bmp);
         ImageView tv1 = new ImageView(this);
         tv1.setImageBitmap(bmp);
         setContentView(tv1);
+        
         try {
-            
             String fDate = new SimpleDateFormat("yyyymmddhhmmss").format(new java.util.Date());
             File picDir = new File( Environment.getExternalStorageDirectory().toString()+File.separator + "BombDiffuser");
             if (! picDir.exists()){
@@ -229,16 +271,11 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
             FileOutputStream out = new FileOutputStream(file);
             out.write(bytes.toByteArray());
 
-           
            out.flush();
            out.close();
 
         } catch (Exception e) {
-               e.printStackTrace();
+            e.printStackTrace();
         }
-    
     }
-
-      
-   
 }
