@@ -50,16 +50,15 @@ containing a value of this type.
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f050009;
+        public static final int action_settings=0x7f050008;
         public static final int any=0x7f050000;
         public static final int back=0x7f050001;
-        public static final int btnNickCageMainMenu=0x7f050006;
-        public static final int btnRemoveMainMenu=0x7f050008;
-        public static final int btnTrollFaceMainMenu=0x7f050007;
+        public static final int btnNickCageMainMenu=0x7f050005;
+        public static final int btnRemoveMainMenu=0x7f050007;
+        public static final int btnTrollFaceMainMenu=0x7f050006;
         public static final int button_capture=0x7f050004;
         public static final int fd_activity_surface_view=0x7f050003;
         public static final int front=0x7f050002;
-        public static final int txtTitle=0x7f050005;
     }
     public static final class layout {
         public static final int activity_display_photo=0x7f030000;
@@ -67,7 +66,7 @@ containing a value of this type.
         public static final int face_detect_surface_view=0x7f030002;
     }
     public static final class menu {
-        public static final int display_photo=0x7f080000;
+        public static final int display_photo=0x7f090000;
     }
     public static final class raw {
         public static final int lbpcascade_frontalface=0x7f040000;
@@ -75,8 +74,35 @@ containing a value of this type.
     public static final class string {
         public static final int action_settings=0x7f070002;
         public static final int app_name=0x7f070000;
-        public static final int hello_world=0x7f070003;
         public static final int title_activity_display_photo=0x7f070001;
+    }
+    public static final class style {
+        /** 
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        
+
+        Base application theme for API 11+. This theme completely replaces
+        AppBaseTheme from res/values/styles.xml on API 11+ devices.
+    
+ API 11 theme customizations can go here. 
+
+        Base application theme for API 14+. This theme completely replaces
+        AppBaseTheme from BOTH res/values/styles.xml and
+        res/values-v11/styles.xml on API 14+ devices.
+    
+ API 14 theme customizations can go here. 
+         */
+        public static final int AppBaseTheme=0x7f080000;
+        /**  Application theme. 
+ All customizations that are NOT specific to a particular API-level can go here. 
+         */
+        public static final int AppTheme=0x7f080001;
     }
     public static final class styleable {
         /** Attributes that can be used with a CameraBridgeViewBase.

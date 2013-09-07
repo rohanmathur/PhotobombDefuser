@@ -37,7 +37,7 @@ public final static String EXTRA_MESSAGE = "com.photobomb.detector.MESSAGE";
     /**
      * Called when the user clicks the Replace button
      */
-    public void startReplace(View view) {
+    public void startRemove(View view) {
         Intent intent = new Intent(this, FdActivity.class);
         intent.putExtra(EXTRA_MESSAGE, "Replace");
         startActivity(intent);
