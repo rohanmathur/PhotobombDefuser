@@ -1,4 +1,4 @@
-package org.opencv.samples.facedetect;
+package org.on.puz.photobombsquad;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -16,11 +16,9 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfRect;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
-import org.opencv.core.Size;
-import org.opencv.objdetect.CascadeClassifier;
+import org.opencv.samples.facedetect.DetectionBasedTracker;
 
 import android.app.Activity;
 import android.content.Context;
@@ -40,8 +38,6 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     private static final String    TAG                 = "OCVSample::Activity";
     private static final Scalar    FACE_GOOD_COLOR     = new Scalar(  0, 255, 0, 255),
     							   FACE_BAD_COLOR      = new Scalar(255,   0, 0, 255);
-    public static final int        JAVA_DETECTOR       = 0;
-    public static final int        NATIVE_DETECTOR     = 1;
 
     private MenuItem               mItemFace50;
     private MenuItem               mItemFace40;
@@ -53,9 +49,6 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     private Mat                    mGray;
     private File                   mCascadeFile;
     private DetectionBasedTracker  mNativeDetector;
-
-    private int                    mDetectorType       = JAVA_DETECTOR;
-    private String[]               mDetectorName;
 
     private float                  mRelativeFaceSize   = 0.2f;
     private int                    mAbsoluteFaceSize   = 0;
@@ -92,7 +85,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
 
                         mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);
                         
-                        mTracker = new FaceTracker(mNativeDetector, 20*20, 20, 1, 3);
+                        mTracker = new FaceTracker(mNativeDetector, 20*20, 20, 1, 1.5);
 
                         cascadeDir.delete();
 
@@ -112,10 +105,6 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     };
 
     public FdActivity() {
-        mDetectorName = new String[2];
-        mDetectorName[JAVA_DETECTOR] = "Java";
-        mDetectorName[NATIVE_DETECTOR] = "Native (tracking)";
-
         Log.i(TAG, "Instantiated new " + this.getClass());
     }
 
@@ -194,7 +183,6 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         mItemFace40 = menu.add("Face size 40%");
         mItemFace30 = menu.add("Face size 30%");
         mItemFace20 = menu.add("Face size 20%");
-        mItemType   = menu.add(mDetectorName[mDetectorType]);
         return true;
     }
 
@@ -209,11 +197,6 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
             setMinFaceSize(0.3f);
         else if (item == mItemFace20)
             setMinFaceSize(0.2f);
-        else if (item == mItemType) {
-            int tmpDetectorType = (mDetectorType + 1) % mDetectorName.length;
-            item.setTitle(mDetectorName[tmpDetectorType]);
-            setDetectorType(tmpDetectorType);
-        }
         return true;
     }
 
@@ -221,23 +204,9 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         mRelativeFaceSize = faceSize;
         mAbsoluteFaceSize = 0;
     }
-
-    private void setDetectorType(int type) {
-        if (mDetectorType != type) {
-            mDetectorType = type;
-
-            if (type == NATIVE_DETECTOR) {
-                Log.i(TAG, "Detection Based Tracker enabled");
-                mNativeDetector.start();
-            } else {
-                Log.i(TAG, "Cascade detector enabled");
-                mNativeDetector.stop();
-            }
-        }
-    }
-    public void capturePhoto(View v){
+    public void capturePhoto(View v,Mat img){
         Bitmap bmp = Bitmap.createBitmap(mRgba.width(), mRgba.height(), Config.ARGB_8888);
-        Utils.matToBitmap(mRgba, bmp);
+        Utils.matToBitmap(img, bmp);
         ImageView tv1 = new ImageView(this);
         tv1.setImageBitmap(bmp);
         setContentView(tv1);

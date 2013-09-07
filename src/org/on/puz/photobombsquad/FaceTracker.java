@@ -1,4 +1,4 @@
-package org.opencv.samples.facedetect;
+package org.on.puz.photobombsquad;
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -10,6 +10,7 @@ import java.util.concurrent.Future;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Rect;
+import org.opencv.samples.facedetect.DetectionBasedTracker;
 
 public class FaceTracker {
 	private static class _FaceEntry {
