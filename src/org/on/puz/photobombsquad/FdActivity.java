@@ -132,13 +132,15 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         
-        if (message == "NickCage") {
+        Log.w("Intent contents",message);
+        
+        if (message.equals("NickCage")) {
         	currentTask = 1;
         }
-        else if (message == "TrollFace") {
+        else if (message.equals("TrollFace")) {
         	currentTask = 2;
         }
-        else if (message == "Replace") {
+        else if (message.equals("Replace")) {
             currentTask = 3;
         }
     }
@@ -156,6 +158,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     {
         super.onResume();
         OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this, mLoaderCallback);
+        //selectTask();
     }
 
     public void onDestroy() {
@@ -239,34 +242,29 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     }
 
     public void capturePhoto(View v){
-    	Log.e("Thisisit", "entered capturePhoto");
-        //if (currentTask == 1 || currentTask == 2) {
+    	Log.e("Thisisit", "entered capturePhoto: " + currentTask);
+        if (currentTask == 1 || currentTask == 2) {
         	Log.e("Thisisit", "hello");
-        	String replacementImage = null;
-        	//if (currentTask == 1) {
-        		replacementImage = "NickCage.png";
-        		Log.e("Thisisit", replacementImage);
-        	//}
-        	//else if (currentTask == 2) {
-        		//replacementImage = "/sdcard/Pictures/PhotobombDefuser/TrollFace.png";
-        		//Log.e("Thisisit", "NUMBA 2");
-        	//}
+        	final String[] filenames = new String[]{"NickCage.png","TrollFace.png"};
+        	String replacementImage = filenames[currentTask-1];
+        	
+    		Log.e("Thisisntit", replacementImage);
 
         	Mat replaceImage = new Mat();
         	try {
 				Utils.bitmapToMat(drawableToBitmap(Drawable.createFromStream(getAssets().open(replacementImage),null)),replaceImage);
-	    		Mat replaceScaled = new Mat();
 	        	for(Rect face:mTracker.badFaces()) {
-	        		Log.e("OMG IN THE LOOP", "OMGOMGOMG");
+		    		Mat replaceScaled = new Mat();
 	        		Mat selectedArea = mRgba.submat(face);
-	        		replaceScaled.reshape(1, 1);
-	        		Imgproc.resize(replaceImage,replaceScaled,selectedArea.size());
-	  	        	replaceImage.copyTo(selectedArea);
+	        		Log.e("OMG IN THE LOOP", "OMGOMGOMG");
+	        		Imgproc.resize(replaceImage,replaceScaled,selectedArea.size(),0,0,Imgproc.INTER_AREA);
+	        		Log.e("OMG IN THE LOOP", "OMGOMGOMG2");
+	  	        	replaceScaled.copyTo(selectedArea);
 	        	}
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-        //}
+        }
 
         Bitmap bmp = Bitmap.createBitmap(mRgba.width(), mRgba.height(), Config.ARGB_8888);
         Utils.matToBitmap(mRgba, bmp);

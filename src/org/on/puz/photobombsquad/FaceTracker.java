@@ -119,10 +119,10 @@ public class FaceTracker {
 	}
 	public Rect[] goodFaces() {
 		Rect[] ret = new Rect[_good.size()];
-		return _good.toArray(ret);
+		return _good.isEmpty() ? ret : _good.toArray(ret);
 	}
 	public Rect[] badFaces() {
 		Rect[] ret = new Rect[_bad.size()];
-		return _bad.toArray(ret);
+		return _bad.isEmpty() ? ret : _bad.toArray(ret);
 	}
 }
