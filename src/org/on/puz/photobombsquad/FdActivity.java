@@ -43,7 +43,6 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     private MenuItem               mItemFace40;
     private MenuItem               mItemFace30;
     private MenuItem               mItemFace20;
-    private MenuItem               mItemType;
 
     private Mat                    mRgba;
     private Mat                    mGray;
