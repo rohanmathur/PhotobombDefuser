@@ -18,16 +18,17 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
 import org.opencv.samples.facedetect.DetectionBasedTracker;
-import org.opencv.core.Size;
-import org.opencv.highgui.Highgui;
-import org.opencv.objdetect.CascadeClassifier;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -223,6 +224,19 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         mRelativeFaceSize = faceSize;
         mAbsoluteFaceSize = 0;
     }
+    
+    public static Bitmap drawableToBitmap (Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable)drawable).getBitmap();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap); 
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
 
     public void capturePhoto(View v){
     	Log.e("Thisisit", "entered capturePhoto");
@@ -230,20 +244,28 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         	Log.e("Thisisit", "hello");
         	String replacementImage = null;
         	//if (currentTask == 1) {
-        		replacementImage = "/sdcard/Pictures/NickCage.png";
+        		replacementImage = "NickCage.png";
         		Log.e("Thisisit", replacementImage);
         	//}
         	//else if (currentTask == 2) {
         		//replacementImage = "/sdcard/Pictures/PhotobombDefuser/TrollFace.png";
         		//Log.e("Thisisit", "NUMBA 2");
         	//}
-        	
-        	for(Rect face:mTracker.badFaces()) {
-        		Log.e("OMG IN THE LOOP", "OMGOMGOMG");
-        		Mat selectedArea = mRgba.submat(face);
-        		Mat replaceImage = Highgui.imread(replacementImage);
-  	        	replaceImage.copyTo(selectedArea);
-        	}
+
+        	Mat replaceImage = new Mat();
+        	try {
+				Utils.bitmapToMat(drawableToBitmap(Drawable.createFromStream(getAssets().open(replacementImage),null)),replaceImage);
+	    		Mat replaceScaled = new Mat();
+	        	for(Rect face:mTracker.badFaces()) {
+	        		Log.e("OMG IN THE LOOP", "OMGOMGOMG");
+	        		Mat selectedArea = mRgba.submat(face);
+	        		replaceScaled.reshape(1, 1);
+	        		Imgproc.resize(replaceImage,replaceScaled,selectedArea.size());
+	  	        	replaceImage.copyTo(selectedArea);
+	        	}
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
         //}
 
         Bitmap bmp = Bitmap.createBitmap(mRgba.width(), mRgba.height(), Config.ARGB_8888);
