@@ -37,6 +37,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class FdActivity extends Activity implements CvCameraViewListener2{//, OnClickListener {
 
@@ -62,6 +63,8 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     private FaceTracker			   mTracker;
     
     private int                    currentTask;
+    
+    private boolean 			   saved;
 
     private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -117,7 +120,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        
+        saved = false;
         Log.i(TAG, "called onCreate");
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -266,36 +269,47 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
 			}
         }
 
-        Bitmap bmp = Bitmap.createBitmap(mRgba.width(), mRgba.height(), Config.ARGB_8888);
-        Utils.matToBitmap(mRgba, bmp);
-        ImageView tv1 = new ImageView(this);
-        tv1.setImageBitmap(bmp);
-        setContentView(tv1);
-        
-        try {
-            String fDate = new SimpleDateFormat("yyyymmddhhmmss").format(new java.util.Date());
-            File picDir = new File( Environment.getExternalStorageDirectory().toString()+File.separator + "BombDiffuser");
-            if (! picDir.exists()){
-                picDir.mkdirs();
-                if (! picDir.mkdirs()){
-                    Log.d("SavePicture", "failed to create directory");
-                    return;
-                }
-            }
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.PNG, 90, bytes);
-            
-            File file = new File(picDir.getPath().toString() + File.separator  + "picture"+ fDate + ".png");
-            Log.i(TAG, picDir.getPath().toString() + File.separator + "picture"+ fDate + ".png");
-            file.createNewFile();
-            FileOutputStream out = new FileOutputStream(file);
-            out.write(bytes.toByteArray());
+        	 Bitmap bmp = Bitmap.createBitmap(mRgba.width(), mRgba.height(), Config.ARGB_8888);
+             Utils.matToBitmap(mRgba, bmp);
+             ImageView tv1 = new ImageView(this);
+             tv1.setImageBitmap(bmp);
+             setContentView(tv1);
+             
+             try {
+                 String fDate = new SimpleDateFormat("yyyymmddhhmmss").format(new java.util.Date());
+                 File picDir = new File( Environment.getExternalStorageDirectory().toString()+File.separator + "BombDiffuser");
+                 if (! picDir.exists()){
+                     picDir.mkdirs();
+                     if (! picDir.mkdirs()){
+                         Log.d("SavePicture", "failed to create directory");
+                         return;
+                     }
+                 }
+                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                 bmp.compress(Bitmap.CompressFormat.PNG, 90, bytes);
+                 
+                 String filepath = picDir.getPath().toString() + File.separator  + "picture"+ fDate + ".png";
+                 File file = new File(filepath);
+                 Log.i(TAG, filepath);
+                 file.createNewFile();
+                 FileOutputStream out = new FileOutputStream(file);
+                 out.write(bytes.toByteArray());
 
-           out.flush();
-           out.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                out.flush();
+                out.close();
+                new SingleMediaScanner(this, file);
+                Toast.makeText(getApplicationContext(), "Photo saved in Gallery!", Toast.LENGTH_LONG).show();
+                
+                saved = true;
+              
+             } catch (Exception e) {
+                 e.printStackTrace();
+             }
+         }
+	    public void onBackPressed() {
+	        Intent backPressedIntent = new Intent();
+	        backPressedIntent .setClass(getApplicationContext(), FdActivity.class);
+	        startActivity(backPressedIntent);
+	        finish();
     }
-}
+     }
