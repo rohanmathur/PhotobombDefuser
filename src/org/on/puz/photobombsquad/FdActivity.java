@@ -297,7 +297,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
                 out.flush();
                 out.close();
                 new SingleMediaScanner(this, file);
-                Toast.makeText(getApplicationContext(), "Photo saved in Gallery!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Photo saved in Gallery", Toast.LENGTH_LONG).show();
                 
                 saved = true;
               
