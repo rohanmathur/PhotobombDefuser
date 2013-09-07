@@ -30,7 +30,7 @@ public void startReplacements(View view) {
  */
 public void startRemove(View view) {
     Intent intent = new Intent(this, FdActivity.class);
-    intent.putExtra(EXTRA_MESSAGE, "Remove");
+    intent.putExtra(EXTRA_MESSAGE, "?");
     startActivity(intent);
 }
 

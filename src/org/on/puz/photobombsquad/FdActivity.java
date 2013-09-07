@@ -62,7 +62,12 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     
     private FaceTracker			   mTracker;
     
-    private int                    currentTask;
+    private enum _Effect {
+    	NONE,REMOVE,REPLACE
+    }
+    
+    private _Effect				   effect;
+    private String                 replaceFile;
     
     private boolean 			   saved;
 
@@ -133,18 +138,17 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         
         // Get the message from the intent
         Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE); 
         
-        Log.w("Intent contents",message);
+        Log.w("Intent contents"," "+message);
         
-        if (message.equals("NickCage")) {
-        	currentTask = 1;
-        }
-        else if (message.equals("TrollFace")) {
-        	currentTask = 2;
-        }
-        else if (message.equals("Replace")) {
-            currentTask = 3;
+        if(message == null) {
+        	effect = _Effect.NONE;
+        } else if (message.equals("?")) {
+        	effect = _Effect.REMOVE;
+        } else {
+        	effect = _Effect.REPLACE;
+        	replaceFile = message;
         }
     }
 
@@ -245,23 +249,18 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     }
 
     public void capturePhoto(View v){
-    	Log.e("Thisisit", "entered capturePhoto: " + currentTask);
-        if (currentTask == 1 || currentTask == 2) {
-        	Log.e("Thisisit", "hello");
-        	final String[] filenames = new String[]{"NickCage.png","TrollFace.png"};
-        	String replacementImage = filenames[currentTask-1];
-        	
-    		Log.e("Thisisntit", replacementImage);
+        if (effect == _Effect.REPLACE) {
+        	//Log.e("Thisisit", "hello");
 
         	Mat replaceImage = new Mat();
         	try {
-				Utils.bitmapToMat(drawableToBitmap(Drawable.createFromStream(getAssets().open(replacementImage),null)),replaceImage);
+				Utils.bitmapToMat(drawableToBitmap(Drawable.createFromStream(getAssets().open(replaceFile),null)),replaceImage);
 	        	for(Rect face:mTracker.badFaces()) {
 		    		Mat replaceScaled = new Mat();
 	        		Mat selectedArea = mRgba.submat(face);
-	        		Log.e("OMG IN THE LOOP", "OMGOMGOMG");
+	        		//Log.e("OMG IN THE LOOP", "OMGOMGOMG");
 	        		Imgproc.resize(replaceImage,replaceScaled,selectedArea.size(),0,0,Imgproc.INTER_AREA);
-	        		Log.e("OMG IN THE LOOP", "OMGOMGOMG2");
+	        		//Log.e("OMG IN THE LOOP", "OMGOMGOMG2");
 	  	        	replaceScaled.copyTo(selectedArea);
 	        	}
 			} catch (IOException e1) {

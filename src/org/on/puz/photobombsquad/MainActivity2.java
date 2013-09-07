@@ -9,7 +9,7 @@ import android.view.View;
 
 public class MainActivity2 extends Activity {
 
-public final static String EXTRA_MESSAGE = "com.photobomb.detector.MainActivity2.MESSAGE";
+public final static String EXTRA_MESSAGE = MainActivity.EXTRA_MESSAGE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public final static String EXTRA_MESSAGE = "com.photobomb.detector.MainActivity2
      */
     public void startNickCage(View view) {
         Intent intent = new Intent(this, FdActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, "NickCage");
+        intent.putExtra(EXTRA_MESSAGE, "NickCage.png");
         startActivity(intent);
     }
 
@@ -31,7 +31,7 @@ public final static String EXTRA_MESSAGE = "com.photobomb.detector.MainActivity2
      */
     public void startTrollFace(View view) {
         Intent intent = new Intent(this, FdActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, "TrollFace");
+        intent.putExtra(EXTRA_MESSAGE, "TrollFace.png");
         startActivity(intent);
     }
 
