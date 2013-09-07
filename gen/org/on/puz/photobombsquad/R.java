@@ -5,12 +5,9 @@
  * should not be modified by hand.
  */
 
-package org.opencv.samples.facedetect;
+package org.on.puz.photobombsquad;
 
 public final class R {
-    public static final class array {
-        public static final int filter_options=0x7f060000;
-    }
     public static final class attr {
         /** <p>May be an integer value, such as "<code>100</code>".
 <p>This may also be a reference to a resource (in the form
@@ -46,8 +43,8 @@ containing a value of this type.
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f070000;
-        public static final int activity_vertical_margin=0x7f070001;
+        public static final int activity_horizontal_margin=0x7f060000;
+        public static final int activity_vertical_margin=0x7f060001;
     }
     public static final class drawable {
         public static final int icon=0x7f020000;
@@ -69,16 +66,15 @@ containing a value of this type.
         public static final int face_detect_surface_view=0x7f030002;
     }
     public static final class menu {
-        public static final int capture_photo=0x7f0a0000;
-        public static final int display_photo=0x7f0a0001;
+        public static final int display_photo=0x7f090000;
     }
     public static final class raw {
         public static final int lbpcascade_frontalface=0x7f040000;
     }
     public static final class string {
-        public static final int action_settings=0x7f080002;
-        public static final int app_name=0x7f080000;
-        public static final int title_activity_display_photo=0x7f080001;
+        public static final int action_settings=0x7f070002;
+        public static final int app_name=0x7f070000;
+        public static final int title_activity_display_photo=0x7f070001;
     }
     public static final class style {
         /** 
@@ -102,11 +98,11 @@ containing a value of this type.
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f090000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f090001;
+        public static final int AppTheme=0x7f080001;
     }
     public static final class styleable {
         /** Attributes that can be used with a CameraBridgeViewBase.
@@ -115,8 +111,8 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #CameraBridgeViewBase_camera_id org.opencv.samples.facedetect:camera_id}</code></td><td></td></tr>
-           <tr><td><code>{@link #CameraBridgeViewBase_show_fps org.opencv.samples.facedetect:show_fps}</code></td><td></td></tr>
+           <tr><td><code>{@link #CameraBridgeViewBase_camera_id org.on.puz.photobombsquad:camera_id}</code></td><td></td></tr>
+           <tr><td><code>{@link #CameraBridgeViewBase_show_fps org.on.puz.photobombsquad:show_fps}</code></td><td></td></tr>
            </table>
            @see #CameraBridgeViewBase_camera_id
            @see #CameraBridgeViewBase_show_fps
@@ -125,7 +121,7 @@ containing a value of this type.
             0x7f010000, 0x7f010001
         };
         /**
-          <p>This symbol is the offset where the {@link org.opencv.samples.facedetect.R.attr#camera_id}
+          <p>This symbol is the offset where the {@link org.on.puz.photobombsquad.R.attr#camera_id}
           attribute's value can be found in the {@link #CameraBridgeViewBase} array.
 
 
@@ -149,7 +145,7 @@ containing a value of this type.
         */
         public static final int CameraBridgeViewBase_camera_id = 1;
         /**
-          <p>This symbol is the offset where the {@link org.opencv.samples.facedetect.R.attr#show_fps}
+          <p>This symbol is the offset where the {@link org.on.puz.photobombsquad.R.attr#show_fps}
           attribute's value can be found in the {@link #CameraBridgeViewBase} array.
 
 
