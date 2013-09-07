@@ -22,6 +22,7 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.android.Utils;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.os.Bundle;
@@ -134,6 +135,16 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.fd_activity_surface_view);
         mOpenCvCameraView.setCvCameraViewListener(this);
+
+        // Get the message from the intent
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        if (message == "NickCage") {}
+            // do something
+        else if (message == "TrollFace") {}
+            // do something else
+        else if (message == "Replace") {}
+            // do something else
     }
 
     @Override
@@ -208,7 +219,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         mItemFace40 = menu.add("Face size 40%");
         mItemFace30 = menu.add("Face size 30%");
         mItemFace20 = menu.add("Face size 20%");
-        mItemType   = menu.add(mDetectorName[mDetectorType]);
+        // mItemType   = menu.add(mDetectorName[mDetectorType]);
         return true;
     }
 
@@ -223,11 +234,11 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
             setMinFaceSize(0.3f);
         else if (item == mItemFace20)
             setMinFaceSize(0.2f);
-        else if (item == mItemType) {
+        /* else if (item == mItemType) {
             int tmpDetectorType = (mDetectorType + 1) % mDetectorName.length;
             item.setTitle(mDetectorName[tmpDetectorType]);
             setDetectorType(tmpDetectorType);
-        }
+        } */
         return true;
     }
 
