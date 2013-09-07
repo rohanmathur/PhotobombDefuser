@@ -34,6 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class FdActivity extends Activity implements CvCameraViewListener2{//, OnClickListener {
 
@@ -59,6 +60,8 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     private FaceTracker			   mTracker;
     
     private int                    currentTask;
+    
+    private boolean 			   saved;
 
     private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -114,7 +117,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        
+        saved = false;
         Log.i(TAG, "called onCreate");
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -273,8 +276,18 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
                 out.flush();
                 out.close();
                 new SingleMediaScanner(this, file);
+                Toast.makeText(getApplicationContext(), "Photo saved in Gallery!", Toast.LENGTH_LONG).show();
+                
+                saved = true;
+              
              } catch (Exception e) {
                  e.printStackTrace();
              }
          }
+	    public void onBackPressed() {
+	        Intent backPressedIntent = new Intent();
+	        backPressedIntent .setClass(getApplicationContext(), FdActivity.class);
+	        startActivity(backPressedIntent);
+	        finish();
+    }
      }
