@@ -3,23 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <Button
-       android:id="@+id/btnReplaceMainMenu"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentLeft="true"
-       android:layout_alignParentRight="true"
-       android:onClick="startReplacements"
-       android:text="Replace Photobombers with Something Else" />
-    
    <Button
-       android:id="@+id/btnRemoveMainMenu"
+       android:id="@+id/btnNickCageMainMenu"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_alignParentLeft="true"
        android:layout_alignParentRight="true"
-       android:layout_below="@+id/btnReplaceMainMenu"
-       android:onClick="startRemove"
-       android:text="Remove Photobombers from the Picture" />
+       android:onClick="startNickCage"
+       android:text="Replace Photobombers with Nick Cage" />
+
+   <Button
+       android:id="@+id/btnTrollFaceMainMenu"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentRight="true"
+       android:layout_below="@+id/btnNickCageMainMenu"
+       android:onClick="startTrollFace"
+       android:text="Replace Photobombers with Troll Face" />
 
 </RelativeLayout>

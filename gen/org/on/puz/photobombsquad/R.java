@@ -50,12 +50,13 @@ containing a value of this type.
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f050008;
+        public static final int action_settings=0x7f050009;
         public static final int any=0x7f050000;
         public static final int back=0x7f050001;
-        public static final int btnNickCageMainMenu=0x7f050005;
-        public static final int btnRemoveMainMenu=0x7f050007;
-        public static final int btnTrollFaceMainMenu=0x7f050006;
+        public static final int btnNickCageMainMenu=0x7f050007;
+        public static final int btnRemoveMainMenu=0x7f050006;
+        public static final int btnReplaceMainMenu=0x7f050005;
+        public static final int btnTrollFaceMainMenu=0x7f050008;
         public static final int button_capture=0x7f050004;
         public static final int fd_activity_surface_view=0x7f050003;
         public static final int front=0x7f050002;
@@ -63,7 +64,8 @@ containing a value of this type.
     public static final class layout {
         public static final int activity_display_photo=0x7f030000;
         public static final int activity_main=0x7f030001;
-        public static final int face_detect_surface_view=0x7f030002;
+        public static final int activity_main2=0x7f030002;
+        public static final int face_detect_surface_view=0x7f030003;
     }
     public static final class menu {
         public static final int display_photo=0x7f090000;
@@ -141,7 +143,7 @@ containing a value of this type.
 <tr><td><code>back</code></td><td>99</td><td></td></tr>
 <tr><td><code>front</code></td><td>98</td><td></td></tr>
 </table>
-          @attr name android:camera_id
+          @attr name org.on.puz.photobombsquad:camera_id
         */
         public static final int CameraBridgeViewBase_camera_id = 1;
         /**
@@ -155,7 +157,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:show_fps
+          @attr name org.on.puz.photobombsquad:show_fps
         */
         public static final int CameraBridgeViewBase_show_fps = 0;
     };
