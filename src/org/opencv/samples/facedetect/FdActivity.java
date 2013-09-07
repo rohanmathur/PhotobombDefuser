@@ -281,8 +281,8 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         tv1.setImageBitmap(bmp);
         setContentView(tv1);
         
-        String fDate = new SimpleDateFormat("yyyymmddhhmmss").format(new java.util.Date());
         try {
+            String fDate = new SimpleDateFormat("yyyymmddhhmmss").format(new java.util.Date());
             File picDir = new File( Environment.getExternalStorageDirectory().toString()+File.separator + "BombDiffuser");
             if (! picDir.exists()){
                 picDir.mkdirs();
