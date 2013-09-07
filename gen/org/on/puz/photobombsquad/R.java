@@ -47,19 +47,21 @@ containing a value of this type.
         public static final int activity_vertical_margin=0x7f060001;
     }
     public static final class drawable {
-        public static final int icon=0x7f020000;
+        public static final int camera=0x7f020000;
+        public static final int icon=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f050009;
+        public static final int action_settings=0x7f05000a;
         public static final int any=0x7f050000;
         public static final int back=0x7f050001;
-        public static final int btnNickCageMainMenu=0x7f050007;
-        public static final int btnRemoveMainMenu=0x7f050006;
-        public static final int btnReplaceMainMenu=0x7f050005;
-        public static final int btnTrollFaceMainMenu=0x7f050008;
+        public static final int btnNickCageMainMenu=0x7f050008;
+        public static final int btnRemoveMainMenu=0x7f050005;
+        public static final int btnReplaceMainMenu=0x7f050006;
+        public static final int btnTrollFaceMainMenu=0x7f050009;
         public static final int button_capture=0x7f050004;
         public static final int fd_activity_surface_view=0x7f050003;
         public static final int front=0x7f050002;
+        public static final int imageView1=0x7f050007;
     }
     public static final class layout {
         public static final int activity_display_photo=0x7f030000;
