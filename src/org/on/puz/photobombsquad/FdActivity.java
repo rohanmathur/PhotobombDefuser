@@ -244,36 +244,37 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         	}
         //}
 
-        Bitmap bmp = Bitmap.createBitmap(mRgba.width(), mRgba.height(), Config.ARGB_8888);
-        Utils.matToBitmap(mRgba, bmp);
-        ImageView tv1 = new ImageView(this);
-        tv1.setImageBitmap(bmp);
-        setContentView(tv1);
-        
-        try {
-            String fDate = new SimpleDateFormat("yyyymmddhhmmss").format(new java.util.Date());
-            File picDir = new File( Environment.getExternalStorageDirectory().toString()+File.separator + "BombDiffuser");
-            if (! picDir.exists()){
-                picDir.mkdirs();
-                if (! picDir.mkdirs()){
-                    Log.d("SavePicture", "failed to create directory");
-                    return;
-                }
-            }
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.PNG, 90, bytes);
-            
-            File file = new File(picDir.getPath().toString() + File.separator  + "picture"+ fDate + ".png");
-            Log.i(TAG, picDir.getPath().toString() + File.separator + "picture"+ fDate + ".png");
-            file.createNewFile();
-            FileOutputStream out = new FileOutputStream(file);
-            out.write(bytes.toByteArray());
+        	 Bitmap bmp = Bitmap.createBitmap(mRgba.width(), mRgba.height(), Config.ARGB_8888);
+             Utils.matToBitmap(mRgba, bmp);
+             ImageView tv1 = new ImageView(this);
+             tv1.setImageBitmap(bmp);
+             setContentView(tv1);
+             
+             try {
+                 String fDate = new SimpleDateFormat("yyyymmddhhmmss").format(new java.util.Date());
+                 File picDir = new File( Environment.getExternalStorageDirectory().toString()+File.separator + "BombDiffuser");
+                 if (! picDir.exists()){
+                     picDir.mkdirs();
+                     if (! picDir.mkdirs()){
+                         Log.d("SavePicture", "failed to create directory");
+                         return;
+                     }
+                 }
+                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                 bmp.compress(Bitmap.CompressFormat.PNG, 90, bytes);
+                 
+                 String filepath = picDir.getPath().toString() + File.separator  + "picture"+ fDate + ".png";
+                 File file = new File(filepath);
+                 Log.i(TAG, filepath);
+                 file.createNewFile();
+                 FileOutputStream out = new FileOutputStream(file);
+                 out.write(bytes.toByteArray());
 
-           out.flush();
-           out.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-}
+                out.flush();
+                out.close();
+                new SingleMediaScanner(this, file);
+             } catch (Exception e) {
+                 e.printStackTrace();
+             }
+         }
+     }
