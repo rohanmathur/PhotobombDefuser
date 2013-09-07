@@ -203,9 +203,9 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         mRelativeFaceSize = faceSize;
         mAbsoluteFaceSize = 0;
     }
-    public void capturePhoto(View v,Mat img){
+    public void capturePhoto(View v) {
         Bitmap bmp = Bitmap.createBitmap(mRgba.width(), mRgba.height(), Config.ARGB_8888);
-        Utils.matToBitmap(img, bmp);
+        Utils.matToBitmap(mRgba, bmp);
         ImageView tv1 = new ImageView(this);
         tv1.setImageBitmap(bmp);
         setContentView(tv1);
