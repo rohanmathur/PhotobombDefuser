@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 
-public class MainActivity extends Activity {
+public class SelectTechniqueActivity extends Activity {
 
 public final static String EXTRA_MESSAGE = "com.photobomb.detector.MainActivity.MESSAGE";
 
@@ -21,7 +21,7 @@ protected void onCreate(Bundle savedInstanceState) {
  * Called when the user clicks the Replacements button
  */
 public void startReplacements(View view) {
-    Intent intent = new Intent(this, MainActivity2.class);
+    Intent intent = new Intent(this, SelectReplaceActivity.class);
     startActivity(intent);
 }
 
@@ -29,7 +29,7 @@ public void startReplacements(View view) {
  * Called when the user clicks the Remove button
  */
 public void startRemove(View view) {
-    Intent intent = new Intent(this, FdActivity.class);
+    Intent intent = new Intent(this, CameraActivity.class);
     intent.putExtra(EXTRA_MESSAGE, "?");
     startActivity(intent);
 }

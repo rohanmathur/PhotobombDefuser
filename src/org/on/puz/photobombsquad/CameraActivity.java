@@ -18,7 +18,6 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
 import org.opencv.samples.facedetect.DetectionBasedTracker;
 
 import android.app.Activity;
@@ -39,7 +38,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class FdActivity extends Activity implements CvCameraViewListener2{//, OnClickListener {
+public class CameraActivity extends Activity implements CvCameraViewListener2{//, OnClickListener {
 
     private static final String    TAG                 = "OCVSample::Activity";
     private static final Scalar    FACE_GOOD_COLOR     = new Scalar(  0, 255, 0, 255),
@@ -120,7 +119,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         }
     };
 
-    public FdActivity() {
+    public CameraActivity() {
         Log.i(TAG, "Instantiated new " + this.getClass());
     }
 
@@ -140,7 +139,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         
         // Get the message from the intent
         Intent intent = getIntent();
-        message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE); 
+        message = intent.getStringExtra(SelectTechniqueActivity.EXTRA_MESSAGE); 
         
         Log.w("Intent contents"," "+message);
         
@@ -190,7 +189,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
 
         mRgba = inputFrame.rgba();
-        mRaw = mRgba.clone();
+        mRgba.copyTo(mRaw);
         mGray = inputFrame.gray();
 
         if (mAbsoluteFaceSize == 0) {
@@ -312,13 +311,13 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     public void onBackPressed() {
         Intent backPressedIntent = new Intent();
         if(saved){
-            backPressedIntent.putExtra(MainActivity.EXTRA_MESSAGE, message);
-            backPressedIntent.setClass(getApplicationContext(), FdActivity.class);
+            backPressedIntent.putExtra(SelectTechniqueActivity.EXTRA_MESSAGE, message);
+            backPressedIntent.setClass(getApplicationContext(), CameraActivity.class);
             startActivity(backPressedIntent);
             finish();
         }
         else{
-            backPressedIntent.setClass(getApplicationContext(), MainActivity.class);
+            backPressedIntent.setClass(getApplicationContext(), SelectTechniqueActivity.class);
             startActivity(backPressedIntent);
             finish();   
         }
