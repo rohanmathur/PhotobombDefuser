@@ -1,37 +1,37 @@
 package org.opencv.samples.facedetect;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 
 import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
+import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
-import org.opencv.android.CameraBridgeViewBase;
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
 import org.opencv.objdetect.CascadeClassifier;
-import org.opencv.imgproc.Imgproc;
-import org.opencv.android.Utils;
+
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-
 import android.view.WindowManager;
 import android.widget.ImageView;
 
@@ -122,7 +122,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-    	
+        
         Log.i(TAG, "called onCreate");
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -132,16 +132,6 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.fd_activity_surface_view);
         mOpenCvCameraView.setCvCameraViewListener(this);
-
-        // Get the message from the intent
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-        if (message == "NickCage") {}
-            // do something
-        else if (message == "TrollFace") {}
-            // do something else
-        else if (message == "Replace") {}
-            // do something else
     }
 
     @Override
@@ -204,7 +194,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         mItemFace40 = menu.add("Face size 40%");
         mItemFace30 = menu.add("Face size 30%");
         mItemFace20 = menu.add("Face size 20%");
-        // mItemType   = menu.add(mDetectorName[mDetectorType]);
+        mItemType   = menu.add(mDetectorName[mDetectorType]);
         return true;
     }
 
@@ -219,11 +209,11 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
             setMinFaceSize(0.3f);
         else if (item == mItemFace20)
             setMinFaceSize(0.2f);
-        /* else if (item == mItemType) {
+        else if (item == mItemType) {
             int tmpDetectorType = (mDetectorType + 1) % mDetectorName.length;
             item.setTitle(mDetectorName[tmpDetectorType]);
             setDetectorType(tmpDetectorType);
-        } */
+        }
         return true;
     }
 
@@ -246,14 +236,41 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         }
     }
     public void capturePhoto(View v){
-    	Bitmap bmp = Bitmap.createBitmap(mRgba.width(), mRgba.height(), Config.ARGB_8888);
-    	Utils.matToBitmap(mRgba, bmp);
-    	ImageView tv1 = new ImageView(this);
-    	tv1.setImageBitmap(bmp);
-    	setContentView(tv1);
+        Bitmap bmp = Bitmap.createBitmap(mRgba.width(), mRgba.height(), Config.ARGB_8888);
+        Utils.matToBitmap(mRgba, bmp);
+        ImageView tv1 = new ImageView(this);
+        tv1.setImageBitmap(bmp);
+        setContentView(tv1);
+        try {
+            
+            String fDate = new SimpleDateFormat("yyyymmddhhmmss").format(new java.util.Date());
+            File picDir = new File( Environment.getExternalStorageDirectory().toString()+File.separator + "BombDiffuser");
+            if (! picDir.exists()){
+                picDir.mkdirs();
+                if (! picDir.mkdirs()){
+                    Log.d("SavePicture", "failed to create directory");
+                    return;
+                }
+            }
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.PNG, 90, bytes);
+            
+            File file = new File(picDir.getPath().toString() + File.separator  + "picture"+ fDate + ".png");
+            Log.i(TAG, picDir.getPath().toString() + File.separator + "picture"+ fDate + ".png");
+            file.createNewFile();
+            FileOutputStream out = new FileOutputStream(file);
+            out.write(bytes.toByteArray());
+
+           
+           out.flush();
+           out.close();
+
+        } catch (Exception e) {
+               e.printStackTrace();
+        }
+    
     }
 
-  
-    
+      
    
 }
