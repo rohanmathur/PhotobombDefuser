@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
    <TextView
-       android:id="@+id/textView1"
+       android:id="@+id/txtTitle"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_alignParentLeft="true"
@@ -15,32 +15,32 @@
        android:textAppearance="?android:attr/textAppearanceLarge" />
 
    <Button
-       android:id="@+id/button_capture"
+       android:id="@+id/btnNickCageMainMenu"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_alignParentLeft="true"
        android:layout_alignParentRight="true"
-       android:layout_below="@+id/textView1"
+       android:layout_below="@+id/txtTitle"
        android:onClick="startNickCage"
        android:text="Replace Photobombers with Nick Cage" />
 
    <Button
-       android:id="@+id/button1"
+       android:id="@+id/btnTrollFaceMainMenu"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_alignParentLeft="true"
        android:layout_alignParentRight="true"
-       android:layout_below="@+id/button_capture"
+       android:layout_below="@+id/btnNickCageMainMenu"
        android:onClick="startTrollFace"
        android:text="Replace Photobombers with Troll Face" />
 
    <Button
-       android:id="@+id/button2"
+       android:id="@+id/btnRemoveMainMenu"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_alignParentLeft="true"
        android:layout_alignParentRight="true"
-       android:layout_below="@+id/button1"
+       android:layout_below="@+id/btnTrollFaceMainMenu"
        android:onClick="startRemove"
        android:text="Attempt to Remove Photobombers" />
 
