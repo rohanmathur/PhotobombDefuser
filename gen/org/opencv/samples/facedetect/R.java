@@ -50,16 +50,20 @@ containing a value of this type.
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f050005;
+        public static final int action_settings=0x7f050008;
         public static final int any=0x7f050000;
         public static final int back=0x7f050001;
+        public static final int button1=0x7f050006;
+        public static final int button2=0x7f050007;
         public static final int button_capture=0x7f050004;
         public static final int fd_activity_surface_view=0x7f050003;
         public static final int front=0x7f050002;
+        public static final int textView1=0x7f050005;
     }
     public static final class layout {
         public static final int activity_display_photo=0x7f030000;
-        public static final int face_detect_surface_view=0x7f030001;
+        public static final int activity_main=0x7f030001;
+        public static final int face_detect_surface_view=0x7f030002;
     }
     public static final class menu {
         public static final int display_photo=0x7f080000;

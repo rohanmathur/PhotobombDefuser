@@ -22,6 +22,7 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.android.Utils;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.os.Bundle;
@@ -134,6 +135,16 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.fd_activity_surface_view);
         mOpenCvCameraView.setCvCameraViewListener(this);
+
+        // Get the message from the intent
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        if (message == "NickCage") {}
+            // do something
+        else if (message == "TrollFace") {}
+            // do something else
+        else if (message == "Replace") {}
+            // do something else
     }
 
     @Override
