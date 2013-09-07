@@ -132,7 +132,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         //findViewById(R.id.button_capture).setOnClickListener(this);        
-        setContentView(R.layout.face_detect_surface_view);
+        setContentView(R.layout.camera_view);
         
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.fd_activity_surface_view);
         mOpenCvCameraView.setCvCameraViewListener(this);

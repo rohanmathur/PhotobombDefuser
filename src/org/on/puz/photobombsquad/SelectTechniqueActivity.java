@@ -14,7 +14,7 @@ public final static String EXTRA_MESSAGE = "com.photobomb.detector.MainActivity.
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.activity_select_technique);
 }
 
 /**

@@ -4,22 +4,32 @@
     android:layout_height="match_parent" >
 
    <Button
-       android:id="@+id/btnNickCageMainMenu"
+       android:id="@+id/btnNickCage"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_alignParentLeft="true"
        android:layout_alignParentRight="true"
        android:onClick="startNickCage"
-       android:text="Replace Photobombers with Nick Cage" />
+       android:text="Nick Cage" />
 
    <Button
-       android:id="@+id/btnTrollFaceMainMenu"
+       android:id="@+id/btnTrollFace"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_alignParentLeft="true"
        android:layout_alignParentRight="true"
-       android:layout_below="@+id/btnNickCageMainMenu"
+       android:layout_below="@+id/btnNickCage"
        android:onClick="startTrollFace"
-       android:text="Replace Photobombers with Troll Face" />
+       android:text="Troll Face" />
+
+   <Button
+       android:id="@+id/btnBobomb"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentRight="true"
+       android:layout_below="@+id/btnTrollFace"
+       android:onClick="startBobomb"
+       android:text="Bob-omb" />
 
 </RelativeLayout>
