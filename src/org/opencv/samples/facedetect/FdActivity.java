@@ -194,7 +194,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
         mItemFace40 = menu.add("Face size 40%");
         mItemFace30 = menu.add("Face size 30%");
         mItemFace20 = menu.add("Face size 20%");
-        mItemType   = menu.add(mDetectorName[mDetectorType]);
+        // mItemType   = menu.add(mDetectorName[mDetectorType]);
         return true;
     }
 
@@ -209,11 +209,11 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
             setMinFaceSize(0.3f);
         else if (item == mItemFace20)
             setMinFaceSize(0.2f);
-        else if (item == mItemType) {
+        /* else if (item == mItemType) {
             int tmpDetectorType = (mDetectorType + 1) % mDetectorName.length;
             item.setTitle(mDetectorName[tmpDetectorType]);
             setDetectorType(tmpDetectorType);
-        }
+        } */
         return true;
     }
 

@@ -61,14 +61,12 @@ containing a value of this type.
         public static final int front=0x7f050002;
     }
     public static final class layout {
-        public static final int activity_capture_photo=0x7f030000;
-        public static final int activity_display_photo=0x7f030001;
-        public static final int activity_main=0x7f030002;
-        public static final int face_detect_surface_view=0x7f030003;
+        public static final int activity_display_photo=0x7f030000;
+        public static final int activity_main=0x7f030001;
+        public static final int face_detect_surface_view=0x7f030002;
     }
     public static final class menu {
-        public static final int capture_photo=0x7f090000;
-        public static final int display_photo=0x7f090001;
+        public static final int display_photo=0x7f090000;
     }
     public static final class raw {
         public static final int lbpcascade_frontalface=0x7f040000;
@@ -143,7 +141,7 @@ containing a value of this type.
 <tr><td><code>back</code></td><td>99</td><td></td></tr>
 <tr><td><code>front</code></td><td>98</td><td></td></tr>
 </table>
-          @attr name android:camera_id
+          @attr name org.opencv.samples.facedetect:camera_id
         */
         public static final int CameraBridgeViewBase_camera_id = 1;
         /**
@@ -157,7 +155,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:show_fps
+          @attr name org.opencv.samples.facedetect:show_fps
         */
         public static final int CameraBridgeViewBase_show_fps = 0;
     };
