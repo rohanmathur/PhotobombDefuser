@@ -63,6 +63,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
     private CameraBridgeViewBase   mOpenCvCameraView;
     
     private FaceTracker			   mTracker;
+    private FrameTracker           mRecentFrames;
     
     private enum _Effect {
     	NONE,REMOVE,REPLACE,BLUR
@@ -103,6 +104,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
                         mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);
                         
                         mTracker = new FaceTracker(mNativeDetector, 20*20, 20, 1, 1.5);
+                        mRecentFrames = new FrameTracker();
 
                         cascadeDir.delete();
 
@@ -204,7 +206,9 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
             mNativeDetector.setMinFaceSize(mAbsoluteFaceSize);
         }
         
-        mTracker.addFaceSet(mGray, System.currentTimeMillis());
+        long now = System.currentTimeMillis();
+        mTracker.addFaceSet(mGray, now);
+        mRecentFrames.addFrame(mRgba, now);
 
         for (Rect face:mTracker.goodFaces())
             Core.rectangle(mRgba, face.tl(), face.br(), FACE_GOOD_COLOR, 3);
@@ -280,7 +284,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
     		}
     	} else if (effect == _Effect.REMOVE) {
         	if (mTracker.badFaces().length != 0)
-        		mRgba = mRecentFrames.getNoBomberFrame(mRgba);
+        		mRaw = mRecentFrames.getNoBomberFrame(mRaw);
         }
 
     	Bitmap bmp = Bitmap.createBitmap(mRaw.width(), mRaw.height(), Config.ARGB_8888);
