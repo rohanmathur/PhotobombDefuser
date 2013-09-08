@@ -292,7 +292,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
     		if (! picDir.exists()){
     			picDir.mkdirs();
     			if (! picDir.mkdirs()){
-    				Log.d("SavePicture", "failed to create directory");
+    				Log.wtf("SavePicture", "failed to create directory");
     				return;
     			}
     		}
