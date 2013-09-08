@@ -62,7 +62,7 @@
            android:layout_width="fill_parent"
            android:layout_height="0dp"
            android:onClick="startRemove"
-           android:text="_defuse" 
+           android:text="defuse" 
            android:textSize="27sp"
            android:layout_weight="1"
            android:layout_marginTop="-5dip"
