@@ -83,7 +83,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
                     // Load native library after(!) OpenCV initialization
                     System.loadLibrary("detection_based_tracker");
 
-                     {
+                    try {
                         // load cascade file from application resources
                         InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
                         File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
@@ -108,7 +108,6 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
                         e.printStackTrace();
                         Log.e(TAG, "Failed to load cascade. Exception thrown: " + e);
                     }
-
                     mOpenCvCameraView.enableView();
                 } break;
                 default:
@@ -308,7 +307,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
     		e.printStackTrace();
     	}
     }
->>>>>>> f092e57f6a87b13fcf363c2e6df8da68fbca2300:src/org/on/puz/photobombsquad/CameraActivity.java
+
     public void onBackPressed() {
         Intent backPressedIntent = new Intent();
         if(saved){
