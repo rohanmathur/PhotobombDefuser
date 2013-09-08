@@ -45,6 +45,8 @@ public class FrameTracker {
 			//than accessing elements in instance variable collections
 			Mat[] framesToAverage = rememberedFrames.values().toArray(new Mat[rememberedFrames.size()]);
 			int framesCount = framesToAverage.length;
+			MatAverager.average(avg, framesToAverage);
+			/*
 			for (int i = 0; i < rows; i++) {
 				for (int j = 0; j < cols; j++) {
 					for (int k = 0; k < 4; k++) {
@@ -55,7 +57,7 @@ public class FrameTracker {
 					}
 					avg.put(i, j, means);
 				}
-			}
+			}*/
 		}
 		return avg;
 	}

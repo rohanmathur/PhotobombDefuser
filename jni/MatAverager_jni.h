@@ -7,7 +7,7 @@ extern "C" {
 #endif
 
 JNIEXPORT void JNICALL Java_org_on_puz_photobombsquad_MatAverager_average(
-   JNIEnv * jenv, jclass, jlong matOut, jobjectArray mats);
+   JNIEnv * jenv, jclass, jlong matOut, jobjectArray* mats);
 
 #ifdef __cplusplus
 }
