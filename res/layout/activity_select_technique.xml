@@ -45,7 +45,7 @@
 	          android:layout_width="fill_parent"
 	          android:layout_height="fill_parent"
 	          android:orientation="vertical">
-       <Button
+       <org.on.puz.photobombsquad.Button2
            android:id="@+id/btnReplaceMainMenu"
            android:layout_width="fill_parent"
            android:layout_height="0dp"
@@ -54,9 +54,10 @@
            android:textSize="27sp"
            android:layout_weight="1"
            android:layout_marginTop="-5dip"
-            android:layout_marginBottom="-4dip"/>
+            android:layout_marginBottom="-4dip"
+            thing:customFont2="Imprima-Regular.ttf"/>
 
-       <Button
+        <org.on.puz.photobombsquad.Button2
            android:id="@+id/btnRemoveMainMenu"
            android:layout_width="fill_parent"
            android:layout_height="0dp"
@@ -65,8 +66,9 @@
            android:textSize="27sp"
            android:layout_weight="1"
            android:layout_marginTop="-5dip"
-            android:layout_marginBottom="-4dip"/>
-       <Button
+            android:layout_marginBottom="-4dip"
+            thing:customFont2="Imprima-Regular.ttf"/>
+        <org.on.puz.photobombsquad.Button2
            android:id="@+id/btnBlurMainMenu"
            android:layout_width="fill_parent"
            android:layout_height="0dp"
@@ -75,7 +77,8 @@
            android:textSize="27sp"
            android:layout_weight="1"
            android:layout_marginTop="-5dip"
-            android:layout_marginBottom="-4dip"/>
+            android:layout_marginBottom="-5dip"
+            thing:customFont2="Imprima-Regular.ttf"/>
        </LinearLayout>
 	</RelativeLayout>
 </LinearLayout>
