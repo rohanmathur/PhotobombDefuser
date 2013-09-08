@@ -311,7 +311,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
     		out.flush();
     		out.close();
     		new SingleMediaScanner(this, file);
-    		Toast.makeText(getApplicationContext(), "Photo saved in Gallery", Toast.LENGTH_LONG).show();
+    		Toast.makeText(getApplicationContext(), "Photo saved in Gallery! Tap screen to share.", Toast.LENGTH_LONG).show();
 
     		saved = true;
 
