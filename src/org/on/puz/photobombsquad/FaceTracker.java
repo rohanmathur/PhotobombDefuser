@@ -160,7 +160,7 @@ public class FaceTracker {
 			if(timestamp-entry.earliestTimestamp < _minNewFaceTime) {
 				int oldest = -1;
 				for(int i=0;i<oldMats.size();++i) {
-					if(oldest < 0 || (oldMats != null && oldMats.get(i).timestampMs < oldMats.get(oldest).timestampMs)) {
+					if(oldest < 0 || (oldMats.get(i) != null && oldMats.get(i).timestampMs < oldMats.get(oldest).timestampMs)) {
 						oldest = i;
 					}
 				}
