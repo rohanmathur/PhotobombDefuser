@@ -1,38 +1,44 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:foo="http://schemas.android.com/apk/res/org.on.puz.photobombsquad"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:singleLine="false" 
+    android:maxLines="2">
 
-   <Button
-       android:id="@+id/btnRemoveMainMenu"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
-       android:layout_alignParentLeft="true"
-       android:layout_alignParentRight="true"
-       android:onClick="startRemove"
-       android:text="Remove Photobombers from the Picture" />
+   <LinearLayout  android:layout_width="match_parent"
+        android:layout_height="fill_parent" >
+       <Button
+           android:id="@+id/btnReplaceMainMenu"
+           android:layout_width="fill_parent"
+           android:layout_height="100dp"
+           android:layout_weight="1"
+           android:onClick="startReplacements"
+           android:text="Countertroll" 
+           android:layout_marginLeft="-3dip"
+    android:layout_marginRight="-3dip"
+           />
 
-   <Button
-       android:id="@+id/btnReplaceMainMenu"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_above="@+id/btnRemoveMainMenu"
-       android:layout_alignParentLeft="true"
-       android:layout_alignParentRight="true"
-       android:onClick="startReplacements"
-       android:text="Replace Photobombers with Something Else" />
-
-   <ImageView
-       android:id="@+id/imageView1"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_above="@+id/btnReplaceMainMenu"
-       android:layout_alignParentLeft="true"
-       android:paddingBottom="50dp"
-       android:paddingLeft="50dp"
-       android:paddingRight="50dp"
-       android:paddingTop="50dp"
-       android:src="@drawable/camera" />
-
-</RelativeLayout>
+       <Button
+           android:id="@+id/btnRemoveMainMenu"
+           android:layout_width="fill_parent"
+           android:layout_height="100dp"
+           android:layout_weight="1"
+           android:onClick="startRemove"
+           android:text="Defuse" 
+           android:layout_marginLeft="-3dip"
+   			android:layout_marginRight="-3dip"/>
+</LinearLayout>
+<LinearLayout  android:layout_width="match_parent"
+        android:layout_height="fill_parent" >
+  <org.on.puz.photobombsquad.TextView2
+        android:id="@+id/appMainTitle"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:text="Defuse"
+        foo:customFont="Imprima-Regular.ttf"
+        android:textSize="90sp">
+        </org.on.puz.photobombsquad.TextView2>
+</LinearLayout>
+</LinearLayout>

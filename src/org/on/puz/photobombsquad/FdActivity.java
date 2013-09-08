@@ -277,7 +277,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2{//, On
              
              try {
                  String fDate = new SimpleDateFormat("yyyymmddhhmmss").format(new java.util.Date());
-                 File picDir = new File( Environment.getExternalStorageDirectory().toString()+File.separator + "BombDiffuser");
+                 File picDir = new File( Environment.getExternalStorageDirectory().toString()+File.separator + "DefusedBombs");
                  if (! picDir.exists()){
                      picDir.mkdirs();
                      if (! picDir.mkdirs()){
