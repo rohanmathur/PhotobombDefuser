@@ -12,6 +12,15 @@
        android:layout_alignParentRight="true"
        android:onClick="startRemove"
        android:text="Remove Photobombers from the Picture" />
+   <Button
+       android:id="@+id/btnBlurMainMenu"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_above="@+id/btnReplaceMainMenu"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentRight="true"
+       android:onClick="startBlur"
+       android:text="Blur Photobombers' faces" />
 
    <Button
        android:id="@+id/btnReplaceMainMenu"
@@ -27,7 +36,7 @@
        android:id="@+id/imageView1"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:layout_above="@+id/btnReplaceMainMenu"
+       android:layout_above="@+id/btnBlurMainMenu"
        android:layout_alignParentLeft="true"
        android:paddingBottom="50dp"
        android:paddingLeft="50dp"
