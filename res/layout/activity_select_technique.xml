@@ -34,8 +34,8 @@
            android:layout_width="fill_parent"
            android:layout_height="100dp"
            android:layout_weight="1"
-           android:onClick="startRemove"
-           android:text="Defuse" 
+           android:onClick="startBlur"
+           android:text="Douse" 
            android:layout_marginLeft="-3dip"
             android:layout_marginRight="-3dip"/>
 </LinearLayout>

@@ -288,7 +288,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
 
     	try {
     		String fDate = new SimpleDateFormat("yyyymmddhhmmss").format(new java.util.Date());
-    		File picDir = new File( Environment.getExternalStorageDirectory().toString()+File.separator + "DefusedBombs");
+    		File picDir = new File( Environment.getExternalStorageDirectory().toString()+File.separator + "BombDefused");
     		if (! picDir.exists()){
     			picDir.mkdirs();
     			if (! picDir.mkdirs()){

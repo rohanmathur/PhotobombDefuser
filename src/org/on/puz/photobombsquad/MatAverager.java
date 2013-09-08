@@ -1,9 +1,7 @@
 package org.on.puz.photobombsquad;
 
-public class MatAverager {
+import org.opencv.core.Mat;
 
-	public MatAverager() {
-		// TODO Auto-generated constructor stub
-	}
-
+public final class MatAverager {
+	public static native int average(Mat out,Mat[] mats);
 }
