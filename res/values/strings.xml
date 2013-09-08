@@ -3,6 +3,5 @@
 
     <string name="app_name">Defuse</string>
     <string name="title_activity_display_photo">Display Photo</string>
-    <string name="action_settings">Settings</string>
     
 </resources>
