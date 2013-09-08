@@ -18,6 +18,8 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
 import org.opencv.samples.facedetect.DetectionBasedTracker;
 
 import android.app.Activity;
@@ -63,7 +65,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
     private FaceTracker			   mTracker;
     
     private enum _Effect {
-    	NONE,REMOVE,REPLACE
+    	NONE,REMOVE,REPLACE,BLUR
     }
     
     private _Effect				   effect;
@@ -108,6 +110,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
                         e.printStackTrace();
                         Log.e(TAG, "Failed to load cascade. Exception thrown: " + e);
                     }
+
                     mOpenCvCameraView.enableView();
                 } break;
                 default:
@@ -146,6 +149,8 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
         	effect = _Effect.NONE;
         } else if (message.equals("?")) {
         	effect = _Effect.REMOVE;
+        } else if (message.equals("?~")) {
+        	effect = _Effect.BLUR;
         } else {
         	effect = _Effect.REPLACE;
         	replaceFile = message;
@@ -268,6 +273,11 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
     		} catch (IOException e1) {
     			e1.printStackTrace();
     		}
+    	} else if(effect == _Effect.BLUR) {
+    		for(Rect face:mTracker.badFaces()) {
+    			Mat sub = mRaw.submat(face);
+    			Imgproc.GaussianBlur(sub, sub, new Size(101,101), 0);
+    		}
     	}
 
     	Bitmap bmp = Bitmap.createBitmap(mRaw.width(), mRaw.height(), Config.ARGB_8888);
@@ -307,7 +317,6 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
     		e.printStackTrace();
     	}
     }
-
     public void onBackPressed() {
         Intent backPressedIntent = new Intent();
         if(saved){

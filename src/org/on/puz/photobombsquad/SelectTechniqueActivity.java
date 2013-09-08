@@ -25,6 +25,12 @@ public void startReplacements(View view) {
     startActivity(intent);
 }
 
+public void startBlur(View view) {
+    Intent intent = new Intent(this, CameraActivity.class);
+    intent.putExtra(EXTRA_MESSAGE, "?~");
+    startActivity(intent);
+}
+
 /**
  * Called when the user clicks the Remove button
  */
