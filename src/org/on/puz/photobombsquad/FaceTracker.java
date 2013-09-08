@@ -22,15 +22,26 @@ public class FaceTracker {
 		public ArrayList<_FaceEntry> faces = new ArrayList<_FaceEntry>();
 		public long latestTimestamp = 0;
 	}
+	private static class _MatEntry {
+		public final Mat m;
+		public final long timestampMs;
+		
+		_MatEntry(Mat _m,long _timestampMs) {
+			m = _m;
+			timestampMs = _timestampMs;
+		}
+	}
 	
 	private static final ExecutorService _executor = Executors.newSingleThreadExecutor();
 	
 	private final DetectionBasedTracker _classifier;
 	private final double _maxGrowthRate,_maxMoveRate;
-	private final long _faceDecayTime,_minNewFaceTime;
+	private final long _faceDecayTime,_minNewFaceTime,_faceHoldTime;
+
+	private final ArrayList<_MatEntry> oldMats = new ArrayList<_MatEntry>();
 	
-	private ArrayList<Rect> _good = new ArrayList<Rect>(),
-							_bad  = new ArrayList<Rect>();
+	private final ArrayList<Rect> _good = new ArrayList<Rect>(),
+								  _bad  = new ArrayList<Rect>();
 	
 	private final _FaceList _faceList = new _FaceList();
 	
@@ -84,15 +95,32 @@ public class FaceTracker {
 
 	public FaceTracker(DetectionBasedTracker classifier,
 					   double maxGrowthRate,double maxMoveRate,
-					   double faceDecayTime,double minNewFaceTime) {
+					   double faceDecayTime,double minNewFaceTime,
+					   double faceHoldTime) {
 		_classifier = classifier;
 		_maxGrowthRate = maxGrowthRate;
 		_maxMoveRate = maxMoveRate;
 		_faceDecayTime = (long)(faceDecayTime*1000);
 		_minNewFaceTime = (long)(minNewFaceTime*1000);
+		_faceHoldTime = (long)(faceHoldTime*1000);
 	}
 	
-	public void addFaceSet(final Mat img,long timestampMs) {
+	public void addFaceSet(final Mat img,long timestampMs,final Mat raw) {
+		boolean found = false;
+		for(int i=0;i<oldMats.size();++i) {
+			if(oldMats.get(i) != null && 
+			   timestampMs-oldMats.get(i).timestampMs > _faceHoldTime) {
+				oldMats.get(i).m.release();
+				oldMats.set(i, null);
+			}
+			if(!found && oldMats.get(i) == null) {
+				oldMats.set(i, new _MatEntry(raw.clone(), timestampMs));
+				found = true;
+			}
+		}
+		if(!found) {
+			oldMats.add(new _MatEntry(raw.clone(),timestampMs));
+		}
 		if(_job != null) {
 			if(_job.isDone()) {
 				try {
@@ -124,5 +152,32 @@ public class FaceTracker {
 	public Rect[] badFaces() {
 		Rect[] ret = new Rect[_bad.size()];
 		return _bad.isEmpty() ? ret : _bad.toArray(ret);
+	}
+	
+	public void eliminateBad(Mat in) {
+		long timestamp = _faceList.latestTimestamp;
+		for(_FaceEntry entry:_faceList.faces) {
+			if(timestamp-entry.earliestTimestamp < _minNewFaceTime) {
+				int oldest = -1;
+				for(int i=0;i<oldMats.size();++i) {
+					if(i == 0 || oldMats.get(i).timestampMs < oldMats.get(oldest).timestampMs) {
+						oldest = i;
+					}
+				}
+				if(oldest >= 0) {
+					oldMats.get(oldest).m.submat(entry.rect).copyTo(in.submat(entry.rect));
+				}
+				/*
+				ArrayList<Mat> olderMats = new ArrayList<Mat>();
+				for(_MatEntry mEntry:oldMats) {
+					if(mEntry.timestampMs < entry.earliestTimestamp) {
+						olderMats.add(mEntry.m.submat(entry.rect));
+					}
+				}
+				Mat[] olderMatsArr = new Mat[olderMats.size()];
+				MatAverager.average(in.submat(entry.rect), olderMats.toArray(olderMatsArr));
+				*/
+			}
+		}
 	}
 }

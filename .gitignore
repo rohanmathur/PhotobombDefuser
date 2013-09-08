@@ -13,7 +13,8 @@
 #
 # Top-level generic files
 #
-bin/
+bin/*
+lib/*
 obj/*
 gen/*
 
