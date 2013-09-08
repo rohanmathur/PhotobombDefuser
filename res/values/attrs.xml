@@ -3,4 +3,7 @@
     <declare-styleable name="TextView2">
         <attr name="customFont" format="string"/>
     </declare-styleable>
+    <declare-styleable name="Button2">
+        <attr name="customFont2" format="string"/>
+    </declare-styleable>
 </resources>

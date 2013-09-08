@@ -1,53 +1,84 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:foo="http://schemas.android.com/apk/res/org.on.puz.photobombsquad"
+    xmlns:thing="http://schemas.android.com/apk/res/org.on.puz.photobombsquad"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:singleLine="false" 
-    android:maxLines="2">
-
-   <LinearLayout  android:layout_width="match_parent"
-        android:layout_height="fill_parent" >
-       <Button
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+	<RelativeLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_weight="2">
+	    <LinearLayout
+	         android:background="@drawable/smoke"
+	         android:layout_width="fill_parent"
+	   		 android:layout_height="fill_parent"
+	   		 android:orientation="vertical">
+	      <org.on.puz.photobombsquad.TextView2
+		        android:id="@+id/appMainTitle"
+		        android:layout_height="0dip"
+		        android:layout_width="fill_parent"
+		        android:text="Defuse"
+		        thing:customFont="Imprima-Regular.ttf"
+		        android:textSize="80sp"
+		        android:layout_weight="1"
+		        android:layout_marginBottom="-35dip"
+		        android:gravity="center">
+		  </org.on.puz.photobombsquad.TextView2>
+		  <TextView
+		      android:id="@+id/appDescription"
+		      android:text="Your selfies are safe with us."
+		      android:layout_height="0dip"
+		      android:textSize="20sp"
+		      android:layout_width="fill_parent"
+		      android:layout_weight="1"
+		      android:gravity="center_horizontal">
+		      
+		      
+		  </TextView>
+		  </LinearLayout>
+	</RelativeLayout>
+   	<RelativeLayout  
+   	    android:layout_width="fill_parent"
+        android:layout_height="fill_parent"  
+        android:layout_weight="3">
+	      <LinearLayout
+	          android:layout_width="fill_parent"
+	          android:layout_height="fill_parent"
+	          android:orientation="vertical">
+       <org.on.puz.photobombsquad.Button2
            android:id="@+id/btnReplaceMainMenu"
            android:layout_width="fill_parent"
-           android:layout_height="100dp"
-           android:layout_weight="1"
+           android:layout_height="0dp"
            android:onClick="startReplacements"
-           android:text="Countertroll" 
-           android:layout_marginLeft="-3dip"
-    android:layout_marginRight="-3dip"
-           />
+           android:text="countertroll" 
+           android:textSize="27sp"
+           android:layout_weight="1"
+           android:layout_marginTop="-5dip"
+            android:layout_marginBottom="-4dip"
+            thing:customFont2="Imprima-Regular.ttf"/>
 
-       <Button
+        <org.on.puz.photobombsquad.Button2
            android:id="@+id/btnRemoveMainMenu"
            android:layout_width="fill_parent"
-           android:layout_height="100dp"
-           android:layout_weight="1"
+           android:layout_height="0dp"
            android:onClick="startRemove"
-           android:text="Defuse" 
-           android:layout_marginLeft="-3dip"
-            android:layout_marginRight="-3dip"/>
-       <Button
+           android:text="_defuse" 
+           android:textSize="27sp"
+           android:layout_weight="1"
+           android:layout_marginTop="-5dip"
+            android:layout_marginBottom="-4dip"
+            thing:customFont2="Imprima-Regular.ttf"/>
+        <org.on.puz.photobombsquad.Button2
            android:id="@+id/btnBlurMainMenu"
            android:layout_width="fill_parent"
-           android:layout_height="100dp"
-           android:layout_weight="1"
+           android:layout_height="0dp"
            android:onClick="startBlur"
-           android:text="Douse" 
-           android:layout_marginLeft="-3dip"
-            android:layout_marginRight="-3dip"/>
-</LinearLayout>
-<LinearLayout  android:layout_width="match_parent"
-        android:layout_height="fill_parent" >
-  <org.on.puz.photobombsquad.TextView2
-        android:id="@+id/appMainTitle"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:text="Defuse"
-        foo:customFont="Imprima-Regular.ttf"
-        android:textSize="90sp">
-  </org.on.puz.photobombsquad.TextView2>
-</LinearLayout>
+           android:text="douse"
+           android:textSize="27sp"
+           android:layout_weight="1"
+           android:layout_marginTop="-5dip"
+            android:layout_marginBottom="-5dip"
+            thing:customFont2="Imprima-Regular.ttf"/>
+       </LinearLayout>
+	</RelativeLayout>
 </LinearLayout>

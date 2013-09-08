@@ -7,29 +7,30 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
-public class TextView2 extends TextView {
+public class Button2 extends Button {
     private static final String TAG = "TextView";
     private static final Hashtable<String, Typeface> cache = new Hashtable<String, Typeface>();
 
-    public TextView2(Context context) {
+    public Button2(Context context) {
         super(context);
     }
 
-    public TextView2(Context context, AttributeSet attrs) {
+    public Button2(Context context, AttributeSet attrs) {
         super(context, attrs);
         setCustomFont(context, attrs);
     }
 
-    public TextView2(Context context, AttributeSet attrs, int defStyle) {
+    public Button2(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setCustomFont(context, attrs);
     }
 
     private void setCustomFont(Context ctx, AttributeSet attrs) {
-        TypedArray a = ctx.obtainStyledAttributes(attrs, R.styleable.TextView2);
-        String customFont = a.getString(R.styleable.TextView2_customFont);
+        TypedArray a = ctx.obtainStyledAttributes(attrs, R.styleable.Button2);
+        String customFont = a.getString(R.styleable.Button2_customFont2);
         setCustomFont(ctx, customFont);
         a.recycle();
     }
