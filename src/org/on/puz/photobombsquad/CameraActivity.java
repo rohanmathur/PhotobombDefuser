@@ -334,7 +334,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
         else{
             backPressedIntent.setClass(getApplicationContext(), SelectTechniqueActivity.class);
             startActivity(backPressedIntent);
-            finish();   
+            finish();
         }
     }
 }
