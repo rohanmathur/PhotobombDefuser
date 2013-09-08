@@ -297,7 +297,6 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
     		String fDate = new SimpleDateFormat("yyyymmddhhmmss").format(new java.util.Date());
     		File picDir = new File( Environment.getExternalStorageDirectory().toString()+File.separator + "DefusedBombs");
     		if (! picDir.exists()){
-    			picDir.mkdirs();
     			if (! picDir.mkdirs()){
     				Log.e("SavePicture", "failed to create directory");
     				return;
