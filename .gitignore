@@ -13,8 +13,7 @@
 #
 # Top-level generic files
 #
-/assets/
-/bin/
+bin/
 obj/*
 gen/*
 
