@@ -278,7 +278,10 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
     			Mat sub = mRaw.submat(face);
     			Imgproc.GaussianBlur(sub, sub, new Size(101,101), 0);
     		}
-    	}
+    	} else if (effect == _Effect.REMOVE) {
+        	if (mTracker.badFaces().length != 0)
+        		mRgba = mRecentFrames.getNoBomberFrame(mRgba);
+        }
 
     	Bitmap bmp = Bitmap.createBitmap(mRaw.width(), mRaw.height(), Config.ARGB_8888);
     	Utils.matToBitmap(mRaw, bmp);
@@ -292,7 +295,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2{//
     		if (! picDir.exists()){
     			picDir.mkdirs();
     			if (! picDir.mkdirs()){
-    				Log.d("SavePicture", "failed to create directory");
+    				Log.e("SavePicture", "failed to create directory");
     				return;
     			}
     		}
